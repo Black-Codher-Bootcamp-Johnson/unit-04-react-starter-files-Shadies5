@@ -1,0 +1,7 @@
+.page, .intro, .sub{
+    background-color: whitesmoke;
+    margin: 50px;
+    text-align: center;
+    box-sizing: border-box;
+    padding: 5px;
+}
