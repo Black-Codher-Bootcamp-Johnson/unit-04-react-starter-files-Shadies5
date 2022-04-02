@@ -1,0 +1,14 @@
+h1{
+    color: violet;
+}
+.button{
+    background-color: #4CAF50;
+    color: aliceblue;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1.2em; 
+    width: 100%;
+}

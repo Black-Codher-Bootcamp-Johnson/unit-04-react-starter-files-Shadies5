@@ -19,10 +19,10 @@ function Book(props) {
       <img src =  {thumbnail} alt = {title} />
     <h2>{title}</h2>
     <dl>
-        <div>
-          <dt>Authors</dt>
-          {authors ? authors.map(author => <dd key={author}>{author}</dd>) : <dd>{'No authors listed'}</dd>}
-        </div>
+    <div>
+    <dt>Authors</dt>
+    {authors ? authors.map(author => <dd key={author}>{author}</dd>) : <dd>{'No authors listed'}</dd>}
+  </div>
         <div>
           <dt>Price</dt>
           <dd>{retailPrice ? `£${retailPrice.amount}` : 'No price listed'}</dd>
@@ -33,8 +33,6 @@ function Book(props) {
     </div>
   );
 }
-
-
 
 Book.propTypes = {
   book: PropTypes.shape({
