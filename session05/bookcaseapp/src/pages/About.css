@@ -1,7 +1,8 @@
-.page, .intro, .sub{
+.intro{
     background-color: whitesmoke;
-    margin: 50px;
+    width:fit-content;
+    height: 100px;
     text-align: center;
     box-sizing: border-box;
-    padding: 5px;
+    padding: 20px;
 }

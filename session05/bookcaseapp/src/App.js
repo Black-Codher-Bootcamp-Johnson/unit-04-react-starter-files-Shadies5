@@ -1,59 +1,75 @@
-import React, { useState } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import HomePage from './pages/HomePage';
-import BookcasePage from './pages/BookcasePage';
-import AboutUsPage from "./pages/AboutUsPage";
-import Header from "./components/Header";
+import React, { useState, useEffect, Fragment } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import './Styles/App.css';
+import Header from './components/Header';
+import BookList from './components/BookList';
+import About from './pages/About';
 import Search from './components/Search';
-import bookData from "./models/books.json";
+import data from './models/local-books.json';
 
-
-function App() {
-  const [books, setBooks] = useState(bookData);
-  const [keyword, setKeyword] = useState("");
+const App = () => {
+  const [books, setBooks] = useState(data);
+  const [bookcase, setBookcase] = useState([]);
 
   async function findBooks(keyword) {
     const url = `https://www.googleapis.com/books/v1/volumes?q=${keyword}&filter=paid-ebooks&print-type=books&projection=lite`;
-    let data = bookData;
-
-    if (keyword.length > 0) {
-      const results = await fetch(url).then(res => res.json());
-      
-      if (!results.error) {
-        data = results.items;
-      }
+    const results = await fetch(url).then(res => res.json());
+    if (!results.error) {
+      setBooks(results.items);
     }
-
-    setBooks(data);
   }
+
+  const addToBookcase = (id) => {
+    setBookcase(bookcase.concat(books.filter(book => book.id === id)));
+    setBooks([...books.map(book => {
+      if (book.id === id) {
+        book.read = true;
+      }
+      return book;
+    }
+    )]);
+  }
+
+  const removeFromBookcase = (id) => {
+    setBookcase(bookcase.filter(book => book.id !== id));
+    setBooks([...books.map(book => {
+      if (book.id === id) {
+        book.read = false;
+      }
+      return book;
+    }
+    )]);
+  }
+
+  useEffect(() => {
+    document.title = `My Library ${bookcase.length} Read`;
+    Array.from(document.getElementsByClassName("bookLink")).forEach((el) => {
+      el.innerText = ` Bookcase (${bookcase.length})`;
+    });
+  });
 
   return (
     <Router>
-      <Header />
-      <Search keyword={keyword} setKeyword={setKeyword} findBooks={findBooks} setBooks={setBooks} />
-      <Routes>
-        <Route
-          exact
-          path="/"
-          element={
-            <>
-              <HomePage books={books} addBook={addBook}></HomePage>
-            </>
-          }
-        />
-        <Route
-          path="/bookcase"
-          element={<BookcasePage books={books} addBook={addBook}></BookcasePage>}
-        />
-        <Route path="/about" element={<AboutUsPage />} />
-      </Routes>
+      <div className="container">
+        <Routes>
+        <Route exact path="/Bookcase" render={() => (
+          <Fragment>
+            <Header bookLength={bookcase.length} />
+            <Search bookcase={bookcase} setBookcase={setBookcase} findBooks={findBooks} setBooks={setBooks}/>
+            <BookList books={books} stored="library" addToBookcase={addToBookcase} removeFromBookcase={removeFromBookcase} />
+          </Fragment>
+        )} />
+        <Route path="/bookcase" render={() => (
+          <Fragment>
+            <Header bookLength={bookcase.length} />
+            <BookList books={bookcase} stored="bookcase" addToBookcase={addToBookcase} removeFromBookcase={removeFromBookcase} />
+          </Fragment>
+        )} />
+        <Route path="/about" component={() => <About bookLength={bookcase.length} />} />
+        </Routes>
+      </div>
     </Router>
   );
-
-}
-
-function addBook(title) {
-  console.log(`The Book ${title} was clicked`);
 }
 
 export default App;

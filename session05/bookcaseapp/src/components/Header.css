@@ -1,9 +1,11 @@
+body{
+    text-transform: uppercase;
+}
 ul{
     display: flex; 
 }
 nav ul li{
     padding-right: 20px;
-    align-content: center;
     cursor: pointer;
     list-style: none;
  

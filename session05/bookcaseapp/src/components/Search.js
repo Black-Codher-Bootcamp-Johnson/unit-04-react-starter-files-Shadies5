@@ -1,30 +1,19 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
-const Search = (props) => {
-  const { keyword, setKeyword, findBooks } = props;
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    findBooks(keyword);
-  };
-
+const About = (props) => {
   return (
-    <div>
-      <form onSubmit={(e) => handleSubmit(e)}>
-        <p>
-          <label>Search: </label>
-          <input
-            type="text"
-            name="search" className= "word" 
-            value={keyword}
-            onChange={(e) => setKeyword(e.target.value)}
-          />
-          <input type="submit" value= "Search" />
-        </p>
-        {keyword && "Keywords Typed: " + keyword}
-      </form>
+    <div className="header">
+      <h1>About</h1>
+      <div className="breadcrumb">
+        <Link to="/"> Home </Link> |<Link to="/about"> About </Link> |
+        <Link to="/bookcase" className="bookLink"> 
+        Bookcase ({props.bookLength})
+        </Link>
+      </div>
+      <div className="page">Welcome to the Bookcase Application.</div>
     </div>
   );
 };
 
-export default Search;
+export default About;

@@ -1,20 +1,18 @@
-import {Link} from 'react-router-dom';
-import './Header.css';
+import React from "react";
+import { Link } from "react-router-dom";
 
 const Header = (props) => {
-    return(
-        <header>
-        <h1>Bookcase</h1>
-        <nav>
-            <ul>
-           <li> <Link to = "/">Home</Link> </li>
+  return (
+    <div className="header">
+      <h1>My e-Book Library</h1>
+      <div className="breadcrumb">
+        <Link to="/"> Home </Link> |<Link to="/about"> About </Link> |
+        <Link to="/bookcase" className="bookLink"> 
+        Bookcase ({props.bookLength})
+        </Link>
+      </div>
+    </div>
+  );
+};
 
-           <li> <Link to = "/bookcase" className= "bookLink">Books</Link> </li>
-            
-            <li><Link to = "/about">About</Link> </li>
-            </ul>
-        </nav>
-        </header>
-    )
-}
 export default Header;
