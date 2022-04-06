@@ -1,6 +1,6 @@
 import React, { useState, useEffect, Fragment } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import './Styles/App.css';
+import './styles/App.css';
 import Header from './components/Header';
 import BookList from './components/BookList';
 import About from './pages/About';
@@ -10,6 +10,7 @@ import data from './models/local-books.json';
 const App = () => {
   const [books, setBooks] = useState(data);
   const [bookcase, setBookcase] = useState([]);
+  const [keyword, setKeyword] = useState("");
 
   async function findBooks(keyword) {
     const url = `https://www.googleapis.com/books/v1/volumes?q=${keyword}&filter=paid-ebooks&print-type=books&projection=lite`;
@@ -51,21 +52,21 @@ const App = () => {
   return (
     <Router>
       <div className="container">
-        <Routes>
-        <Route exact path="/Bookcase" render={() => (
+      <Routes>
+        <Route exact path="/" element={
           <Fragment>
             <Header bookLength={bookcase.length} />
-            <Search bookcase={bookcase} setBookcase={setBookcase} findBooks={findBooks} setBooks={setBooks}/>
+            <Search bookcase={bookcase} setBookcase={setBookcase} findBooks={findBooks} setBooks={setBooks} keyword={keyword} setKeyword={setKeyword}/>
             <BookList books={books} stored="library" addToBookcase={addToBookcase} removeFromBookcase={removeFromBookcase} />
           </Fragment>
-        )} />
-        <Route path="/bookcase" render={() => (
+        } />
+        <Route path="/bookcase" element={
           <Fragment>
             <Header bookLength={bookcase.length} />
             <BookList books={bookcase} stored="bookcase" addToBookcase={addToBookcase} removeFromBookcase={removeFromBookcase} />
           </Fragment>
-        )} />
-        <Route path="/about" component={() => <About bookLength={bookcase.length} />} />
+        } />
+        <Route path="/about" element={<About bookLength={bookcase.length} />} />
         </Routes>
       </div>
     </Router>

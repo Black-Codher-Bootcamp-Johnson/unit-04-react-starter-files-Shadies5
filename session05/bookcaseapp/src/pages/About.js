@@ -1,13 +1,20 @@
 import React from "react";
-import "../pages/About.css";
+import { Link } from "react-router-dom";
+import "../styles/About.css"
 
-const AboutUsPage = (props) => {
-    return(
-        <>
-      <div className="header">
-        <h2 className= "intro">Welcome to the Bookcase Application.</h2>
+const About = (props) => {
+  return (
+    <>
+      <div className="navbar">
+        <a href= "/"> Home </a> |
+        <a href="/about"> About </a> |
+        <Link to="/bookcase" className="bookLink"> 
+        Bookcase ({props.bookLength})
+        </Link>
       </div>
-    </>
-    );
-}
-export default AboutUsPage;
+      <div className="page">Welcome to the Bookcase Application.</div>
+      </>
+  );
+};
+
+export default About;
