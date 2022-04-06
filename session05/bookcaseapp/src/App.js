@@ -7,6 +7,7 @@ import About from './pages/About';
 import Search from './components/Search';
 import data from './models/local-books.json';
 
+
 const App = () => {
   const [books, setBooks] = useState(data);
   const [bookcase, setBookcase] = useState([]);
@@ -67,9 +68,12 @@ const App = () => {
           </Fragment>
         } />
         <Route path="/about" element={<About bookLength={bookcase.length} />} />
+      
         </Routes>
       </div>
+      
     </Router>
+    
   );
 }
 

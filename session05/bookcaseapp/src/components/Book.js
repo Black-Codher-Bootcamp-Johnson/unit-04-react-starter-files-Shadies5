@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import '../styles/book.css';
 
+
 const Book = ({book, ...props}) => {
   const { 
     id,
@@ -40,19 +41,20 @@ const Book = ({book, ...props}) => {
             className="add-button"
             onClick={() => props.addToBookcase(id)}
           >
-            + Add
+             Add
           </button>
         ) : (
           <button
             className="remove-button"
             onClick={() => props.removeFromBookcase(id)}
           >
-            x
+            Remove
           </button>
         )}
       </div>
-
+     
     </div>
+    
   );
 }
 
@@ -69,10 +71,11 @@ Book.propTypes = {
       })
     })
   })
+
 };
 Book.defaultProps = {
   volumeInfo: {description: "No description"},
   saleInfo: {retailPrice: {amount: 0} }
 }
-
+ 
 export default Book;

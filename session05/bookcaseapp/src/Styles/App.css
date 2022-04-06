@@ -64,10 +64,10 @@ a{
   color:#fff;
   float: right;
   cursor: pointer;
-  font-size:1.1em;
   background-color: #bd1515;
   font-weight: bold;
   font-size: 1.2em;
+  box-sizing:content-box;
 }
 
 .searchBar{
