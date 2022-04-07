@@ -1,7 +1,5 @@
 import React from 'react';
 
-const propTypes = {};
-const defaultProps = {};
 
 const Search = (props) => {
 console.log(props);
@@ -10,8 +8,9 @@ console.log(props);
         props.findBooks(props.keyword);
     };
 
-    return <div className="searchBar">
-        <form onSubmit={handleSubmit}>
+    return (
+        <div className="searchBar">
+        <form onSubmit={ (e) => handleSubmit(e)}>
         <label>
             <input type="text" placeholder="Enter name, author, keyword or genre..." name="search" value={props.keyword} onChange={(e) => props.setKeyword(e.target.value)}/>
         </label>
@@ -19,10 +18,7 @@ console.log(props);
         </form>
         <h1>{props.keyword && 'Searching for keyword:' + props.keyword}</h1>
     </div>
+    )
 }
-
-Search.propTypes = propTypes;
-Search.defaultProps = defaultProps;
-// #endregion
 
 export default Search;
